@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Refine Dashboard
 
-## Getting Started
+基于 Refine + Next.js + shadcn/ui 的管理面板
 
-First, run the development server:
+## 技术栈
+
+- **Next.js 16** - App Router, TypeScript
+- **Refine v5** - 数据管理框架
+- **shadcn/ui** - UI 组件库 (Tailwind CSS v4)
+- **Recharts** - 图表库
+- **Lucide React** - 图标库
+
+## 功能
+
+- 📊 **概览页** - KPI 卡片、收入趋势图、订单量柱状图、最近订单
+- 👥 **用户管理** - 用户列表、角色、状态管理
+- 🛒 **订单管理** - 订单列表、状态跟踪
+- 📦 **产品管理** - 产品列表、库存状态
+
+## 开始使用
 
 ```bash
+# 安装依赖
+npm install
+
+# 开发模式
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 构建
+npm run build
+
+# 启动生产服务
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Mock 数据
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+当前使用 mock 数据，数据定义在 `src/data/mock-data.ts`。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+要接入后端 API，只需替换 `src/data/data-provider.ts` 中的 `mockDataProvider`，例如使用 Refine 官方提供的 REST 或 GraphQL data provider。
 
-## Learn More
+## 项目结构
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── dashboard/          # Dashboard 路由
+│   │   ├── layout.tsx      # Dashboard 布局（侧边栏）
+│   │   ├── page.tsx        # 概览页
+│   │   ├── users/page.tsx  # 用户管理
+│   │   ├── orders/page.tsx # 订单管理
+│   │   └── products/page.tsx # 产品管理
+│   ├── globals.css         # 全局样式（shadcn 主题变量）
+│   ├── layout.tsx          # 根布局
+│   └── page.tsx            # 根页面（重定向到 /dashboard）
+├── components/
+│   ├── ui/                 # shadcn/ui 组件
+│   └── dashboard-sidebar.tsx # 侧边栏导航
+├── data/
+│   ├── mock-data.ts        # Mock 数据定义
+│   └── data-provider.ts    # Refine DataProvider
+├── lib/
+│   └── utils.ts            # 工具函数
+└── providers/
+    └── refine-provider.tsx  # Refine 配置
+```
